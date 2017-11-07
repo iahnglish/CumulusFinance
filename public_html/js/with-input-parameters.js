@@ -1,6 +1,6 @@
 /* Create a new instance of the eGainLibrarySettings Object */
 var myLibrarySettings = new eGainLibrarySettings();
-myLibrarySettings.CORSHost = "https://eceweb.cc.com/system"; //$.cookie('corsHost');
+myLibrarySettings.CORSHost = "https://eceweb.cc.com/system";
 myLibrarySettings.IsDevelopmentModeOn = false;
 myLibrarySettings.eGainContextPath = "./";
 /* Next create a new instance of the eGainLibrary */
@@ -14,6 +14,7 @@ var temp = {};
 var file = "";
 var fileName = "";
 var agentName = "";
+var cobrowseConfig = [];
 /* Now create an instance of the Chat Object */
 var myChat = new myLibrary.Chat();
 /* Next get the event handlers for chat. It is mandatory to provide definition for the mandatory event handlers before initializing chat */
@@ -32,8 +33,6 @@ myEventHandlers.OnConnectionFailure = function () {
 
 /* Example output of agent messages to a DIV named TransScript with jQuery */
 myEventHandlers.OnAgentMessageReceived = function (agentMessageReceivedEventArgs) {
-    //$('#messages').append("<br />Agent: " + agentMessageReceivedEventArgs.Message);
-    //alert("Incomming: " + agentMessageReceivedEventArgs.Message);
     $('#messages ul').append( '<li><span class="left-chat">' + agentMessageReceivedEventArgs.Message + '</span><div class="clear"></div></li>');
     temp['Inbound Chat' + chatIndex++] = agentMessageReceivedEventArgs.Message;
     myTranscript.push(temp);
@@ -105,4 +104,34 @@ function sendAcceptChatAttachmentNotification(attachment){
     myChat.SendAcceptChatAttachmentNotification(attachment.Id,attachment.Name);
     myChat.GetAttachment(attachment.Id);
 };
+// We need to get a shortcode first from REM
+function getShort() {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+            if(request.status == 200) {
+                var shortcode = JSON.parse(request.responseText).shortCode;
+                start(shortcode);
+            }
+        }
+    }
+    request.open('PUT', 'https://remobile.cc.com:8443/assistserver/shortcode/create', true);
+    request.send();
+}
+var start = function(shortcode) {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+            if(request.status == 200) {
+                var response = JSON.parse(request.responseText);
+                cobrowseConfig.sessionToken = response['session-token'];
+                //alert("ShortCode: " + shortcode);
+                cobrowseConfig.correlationId = response['cid'];
+                AssistSDK.startSupport({correlationId : cobrowseConfig.correlationId});
+            }
+        }
+    }
+    request.open('GET', 'https://remobile.cc.com:8443/assistserver/shortcode/consumer?appkey=' + shortcode, true);
+    request.send();
+}
 
