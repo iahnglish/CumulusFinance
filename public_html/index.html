@@ -19,13 +19,33 @@
         <link rel="stylesheet" href="css/testimonails-slider.css">
 
         <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
-		<script>
-		// Insert your Chat/Callback Template Here
-		</script>
+		
 	</head>
 	
     <body>
-    
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId            : '1631875130165054',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v2.11'
+            });
+//            FB.ui(
+//             {
+//              method: 'share',
+//              href: 'https://developers.facebook.com/docs/'
+//            }, function(response){});
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "https://connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        </script>
             <header>
                 <div id="top-header">
                     <div class="container">
@@ -362,6 +382,6 @@
         <script src="js/vendor/jquery.gmap3.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-
+                                        
     </body>
 </html>
