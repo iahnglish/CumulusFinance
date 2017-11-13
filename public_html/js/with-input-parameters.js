@@ -134,4 +134,19 @@ var start = function(shortcode) {
     request.open('GET', 'https://remobile.cc.com:8443/assistserver/shortcode/consumer?appkey=' + shortcode, true);
     request.send();
 }
-
+function sendTranscript(tranScript) {
+    var baseUrl = "https://websvr.cc.com:8181/ECC-1.0-SNAPSHOT/rest/members/transcript";
+    $.ajax({
+            type: "POST",
+            url: baseUrl ,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({ "Customer_Work_Email": "michael.littlefoot@cc.com", "chat_transcript" : tranScript}),
+            success: function(data) {
+                   alert("Successfully sent Transcript"); 
+            },
+            error: function() {
+                    alert("Error Sending Transcript");
+            }
+    });
+}

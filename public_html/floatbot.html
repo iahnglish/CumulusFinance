@@ -198,7 +198,7 @@
             else if(spokenResponse === "calculator")
             {
                 respond("Ok... Your calculator should have appeared on the left!");
-                navWindow = window.open("calculator.html", "mywindow", "location=1,status=1,scrollbars=1,width=400,height=600");
+                navWindow = window.open("calculator.html", "mywindow", "location=1,status=1,scrollbars=1,width=400,height=800");
                 //testwindow.moveTo(0, 0);
             }
             else if(spokenResponse === "home")
@@ -207,7 +207,7 @@
                 if(navWindow)
                     navWindow.location.href = 'index.html';
                 else
-                    navWindow = window.open("index.html", "mywindow", "location=1,status=1,scrollbars=1,width=800,height=600");
+                    navWindow = window.open("index.html", "mywindow", "location=1,status=1,scrollbars=1,width=800,height=800");
                 $(navWindow).focus();
             }
             else if(spokenResponse === "sparkcare")
@@ -262,6 +262,8 @@
         // Setting up ECE to start a Chat session
         function escalateIt()
         {
+            var t = document.getElementById('messages');
+            sendTranscript(t.innerText);
             /* Create the customer object */
             InChat = true;
             customerObject =  new myLibrary.Datatype.CustomerObject();
