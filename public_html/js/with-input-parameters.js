@@ -143,10 +143,10 @@ function sendTranscript(tranScript) {
             dataType: "json",
             data: JSON.stringify({ "Customer_Work_Email": "michael.littlefoot@cc.com", "chat_transcript" : tranScript}),
             success: function(data) {
-                   alert("Successfully sent Transcript"); 
+                   //alert("Successfully sent Transcript"); 
             },
             error: function() {
-                    alert("Error Sending Transcript");
+                    //alert("Error Sending Transcript");
             }
     });
 }

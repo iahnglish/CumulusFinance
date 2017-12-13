@@ -13,9 +13,9 @@ window.ShortCodeAssist =
             
             tokenRequest.onreadystatechange = function () 
             {
-                if (tokenRequest.readyState == 4) 
+                if (tokenRequest.readyState === 4) 
                 {
-                    if (tokenRequest.status == 200) 
+                    if (tokenRequest.status === 200) 
                     {
                         var tokenResponse = JSON.parse(tokenRequest.responseText);
                         if (typeof (configuration) === 'string' || typeof (configuration) === 'undefined') {
@@ -33,7 +33,7 @@ window.ShortCodeAssist =
                         AssistSDK.startSupport(configuration);
                         callback && callback(shortCode);
                     } 
-                    else if (tokenRequest.status == 403) 
+                    else if (tokenRequest.status === 403) 
                     {
                         failure();
                     } 
@@ -62,12 +62,14 @@ window.ShortCodeAssist =
             var shortCodeRequest = new XMLHttpRequest();
             shortCodeRequest.onreadystatechange = function () 
             {
-                if (shortCodeRequest.readyState == 4) 
+                if (shortCodeRequest.readyState === 4) 
                 {
-                    if (shortCodeRequest.status == 200) 
+                    if (shortCodeRequest.status === 200) 
                     {
                         var shortCodeResponse = JSON.parse(shortCodeRequest.responseText);
                         var shortCode = shortCodeResponse.shortCode;
+                        //$("#input").val("Please pass this code to the agent: " + shortCode);
+                        alert("Please pass this code to the agent: " + shortCode);
                         startWithShortCode(shortCode);
                     } 
                     else 

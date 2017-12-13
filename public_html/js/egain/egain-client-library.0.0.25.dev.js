@@ -11163,7 +11163,7 @@ Strophe.Connection.prototype = {
         });
 
         this._changeConnectStatus(Strophe.Status.CONNECTING, null);
-
+        console.log("BODY(CONNECT): " + body);
         this._requests.push(
             new Strophe.Request(body.tree(),
                                 this._onRequestStateChange.bind(this)
@@ -15421,7 +15421,7 @@ Strophe.Connection.prototype.connect = function(jid, pass, callback, wait, hold)
 	}
 	
 	this._changeConnectStatus(Strophe.Status.CONNECTING, null);
-
+        console.log("BODY(PROTOTYPE): " + body);
 	this._requests.push(new Strophe.Request(body.tree(),
 			this._onRequestStateChange.bind(this).prependArg(
 					this._connect_cb.bind(this)), body.tree().getAttribute(
